@@ -483,7 +483,7 @@
                     </div>
 
                     <div class="col-3" style="margin-top: 5px;">
-                        <form action="https://script.google.com/macros/s/AKfycbwBEim-noZSaTySlCIQLy9-XkajvZLjdQ1n3_Ne3Giv5pvB6G5qqmUMZf2XwA9Gh4jRew/exec" method="post" class="wpcf7-form">
+                        <form action="https://script.google.com/macros/s/AKfycbwBEim-noZSaTySlCIQLy9-XkajvZLjdQ1n3_Ne3Giv5pvB6G5qqmUMZf2XwA9Gh4jRew/exec" method="post" class="wpcf7-form" id="myForm">
                             <div class="row">
                                 <div class="col-md-12">
                                     <span class="wpcf7-form-control-wrap your-name">
@@ -513,6 +513,9 @@
                                 <input style="border-radius: 5px;" type="submit" value="SUBMIT" class="wpcf7-form-control wpcf7-submit btn button-63">
                             </p>
                         </form>
+                        <div id="popup" style="display: none;">
+                            <p>Thank you for submitting the form!</p>
+                          </div>
                     </div>
                     
                 </div>
@@ -552,5 +555,31 @@
     <script src="app/js/animated.js"></script>
     <script src="app/js/countto.js"></script>
     <script src="app/js/plugin.js"></script>
+    <script>
+        window.addEventListener("load", function() {
+  const form = document.getElementById('myForm');
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const data = new FormData(form);
+    const action = e.target.action;
+    fetch(action, {
+      method: 'POST',
+      body: data,
+    })
+    .then(() => {
+      // Show popup
+      document.getElementById("popup").style.display = "block";
+      // Hide popup after 3 seconds
+      setTimeout(function() {
+        popup.style.display = "none";
+      }, 3000);
+     
+      // Redirect to thank you page
+      window.location.href = 'thankyou.html';
+    })
+  });
+});
+
+        </script>
 </body>
 </html>
